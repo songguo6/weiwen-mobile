@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
 
+import { Button } from 'antd-mobile';
+
 function App() {
   return (
-    <div>Hello EOS</div>
+    <Button type="primary">Hello EOS</Button>
   );
 }
 

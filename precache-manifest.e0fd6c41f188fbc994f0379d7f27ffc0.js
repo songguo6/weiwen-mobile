@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e44a1930f273660afd456270f31e1daf",
+    "revision": "2b00dbc301343f217212823ee0cd9ce6",
     "url": "/weiwen-mobile/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/weiwen-mobile/static/css/2.3ee3df82.chunk.css"
   },
   {
-    "revision": "2688834194b50f333af2",
-    "url": "/weiwen-mobile/static/css/main.36497136.chunk.css"
+    "revision": "39e26a531c3a9de12956",
+    "url": "/weiwen-mobile/static/css/main.db969410.chunk.css"
   },
   {
     "revision": "538e8c2c3715fe0ae7b4",
     "url": "/weiwen-mobile/static/js/2.1eaf22fe.chunk.js"
   },
   {
-    "revision": "2688834194b50f333af2",
-    "url": "/weiwen-mobile/static/js/main.d6644a5c.chunk.js"
+    "revision": "39e26a531c3a9de12956",
+    "url": "/weiwen-mobile/static/js/main.3dac57bb.chunk.js"
   },
   {
     "revision": "e0f9ca5d760f95c8bddd",

@@ -38,3 +38,7 @@
 .icon-home1:before {
   content: "\e602";
 }
+
+.am-card-header-content { font-size: 14px; }
+.am-card-header-content img { width: 22px; height: 22px; }
+.am-card-header-extra { font-size: 14px; }

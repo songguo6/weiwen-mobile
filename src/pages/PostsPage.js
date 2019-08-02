@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { NavBar, ListView, Card, Icon } from 'antd-mobile';
+import { NavBar, ListView, Card, Flex, WhiteSpace } from 'antd-mobile';
 import moment from 'moment';
 
 import * as ipfsApi from '../api/ipfsApi';
@@ -18,7 +18,7 @@ function genData(pIndex = 0) {
 
 const IconText = ({ type, text, onClick }) => (
   <span onClick={onClick}>
-    <Icon type={type} style={{ marginRight: 8 }} />
+    <i class={'iconfont ' + type} style={{ marginRight: 8 }}></i>
     {text}
   </span>
 );
@@ -39,9 +39,9 @@ class PostsPage extends Component {
 
   renderAttachment(type, attachment){
     if(type === 1){
-      return <a href={attachment}><IconText type='link' text={attachment} /></a> 
+      return <a href={attachment}><IconText type='icon-link' text={attachment} /></a> 
     }else if(type === 2){
-      return <a href={ipfsApi.ipfsUrl(attachment)}><IconText type='link' text={attachment} /></a> 
+      return <a href={ipfsApi.ipfsUrl(attachment)}><IconText type='icon-link' text={attachment} /></a> 
     }else if(type === 3){
       return (
         <a href={attachment} target='_blank' rel='noopener noreferrer'>
@@ -58,26 +58,33 @@ class PostsPage extends Component {
       if (index < 0) {
         index = data.length - 1;
       }
-      const obj = data[index--];
+      const item = data[index--];
 
       return (
         <div key={rowID} style={{ padding: '0 15px' }}>
           <Card full>
             <Card.Header
-              title={obj.author}
+              title={item.author}
               thumb='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
-              extra={<span style={{fontSize: '14px'}}>{moment(moment(obj.time).valueOf()+8*3600000).format('YYYY-MM-DD HH:mm')}</span>}
+              extra={<span style={{fontSize: '14px'}}>{moment(moment(item.time).valueOf()+8*3600000).format('YYYY-MM-DD HH:mm')}</span>}
             />
             <Card.Body>
-              <div className='item-content'>{obj.content}</div>
+              <WhiteSpace size='xs'/>
+              <div className='item-content'>{item.content}</div>
+              <WhiteSpace size='lg'/>
               {
-                obj.attachtype ? 
+                item.attachtype ? 
                 <div className='item-attach'>
-                  {this.renderAttachment(obj.attachtype, obj.attachment)}
+                  {this.renderAttachment(item.attachtype, item.attachment)}
                 </div> : ''
               }
+              <WhiteSpace size='lg'/>
+              <Flex style={{color: 'rgba(0,0,0,.45)', fontSize: '14px'}}>
+                <Flex.Item><IconText type='icon-money' text={parseFloat(item.balance).toFixed(2)} /></Flex.Item>
+                <Flex.Item><IconText type='icon-dianzan' text={item.like_num} onClick={() => {console.log('like:'+item.id)}} /></Flex.Item>
+                <Flex.Item><IconText type='icon-comment' text={item.comment_num} onClick={() => {console.log('comment:'+item.id)}} /></Flex.Item>
+              </Flex>
             </Card.Body>
-            <Card.Footer content='' extra={<div></div>} />
           </Card>
         </div>
       );

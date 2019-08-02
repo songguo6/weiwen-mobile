@@ -41,4 +41,6 @@
 
 .am-card-header-content { font-size: 14px; }
 .am-card-header-content img { width: 22px; height: 22px; }
-.am-card-header-extra { font-size: 14px; }
+
+.item-content {margin-top: 6px;  line-height: 22px; }
+.item-attach { margin-top: 12px; line-height: 22px; }

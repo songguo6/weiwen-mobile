@@ -1,4 +1,4 @@
-export const data = [{
+export const data =[{
   "id": 0,
   "author": "songguo12345",
   "content": "my first post",
@@ -97,5 +97,55 @@ export const data = [{
   "time": "2019-05-29T00:48:44",
   "balance": "96.5954 WEI",
   "like_num": 2,
+  "comment_num": 0
+},{
+  "id": 10,
+  "author": "songguo54321",
+  "content": "本地发布",
+  "attachtype": 1,
+  "attachment": "https://bihu.com/people/14150",
+  "time": "2019-05-29T14:58:15",
+  "balance": "0.0000 WEI",
+  "like_num": 1,
+  "comment_num": 0
+},{
+  "id": 11,
+  "author": "songguo54321",
+  "content": "IPFS网络发布",
+  "attachtype": 1,
+  "attachment": "https://bihu.com/people/14150",
+  "time": "2019-05-30T03:09:32",
+  "balance": "0.0000 WEI",
+  "like_num": 0,
+  "comment_num": 0
+},{
+  "id": 12,
+  "author": "songguo12345",
+  "content": "IPFS网络发布",
+  "attachtype": 1,
+  "attachment": "bihu.com/people/14150",
+  "time": "2019-05-30T03:19:57",
+  "balance": "0.0000 WEI",
+  "like_num": 0,
+  "comment_num": 0
+},{
+  "id": 13,
+  "author": "songguo12345",
+  "content": "本地发布",
+  "attachtype": 1,
+  "attachment": "https://github.com/songguo6",
+  "time": "2019-05-30T03:38:48",
+  "balance": "0.0000 WEI",
+  "like_num": 0,
+  "comment_num": 0
+},{
+  "id": 14,
+  "author": "songguo12345",
+  "content": "IPFS网络发布",
+  "attachtype": 3,
+  "attachment": "https://pic3.zhimg.com/80/v2-c88c168f8bbdcd78687ad0f693a9a686_hd.jpg",
+  "time": "2019-05-30T03:44:51",
+  "balance": "101.6674 WEI",
+  "like_num": 1,
   "comment_num": 0
 }];

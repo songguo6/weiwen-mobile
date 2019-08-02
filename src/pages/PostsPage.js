@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { NavBar, ListView, Card } from 'antd-mobile';
+import { NavBar, ListView, Card, Icon } from 'antd-mobile';
 import moment from 'moment';
 
+import * as ipfsApi from '../api/ipfsApi';
 import { data } from '../data';
 
 const NUM_ROWS = 20;
@@ -15,6 +16,13 @@ function genData(pIndex = 0) {
   return dataBlob;
 }
 
+const IconText = ({ type, text, onClick }) => (
+  <span onClick={onClick}>
+    <Icon type={type} style={{ marginRight: 8 }} />
+    {text}
+  </span>
+);
+
 class PostsPage extends Component {
 
   constructor(props) {
@@ -27,6 +35,21 @@ class PostsPage extends Component {
 
   componentDidMount() {
     this.setState({dataSource: this.state.dataSource.cloneWithRows(genData())});
+  }
+
+  renderAttachment(type, attachment){
+    if(type === 1){
+      return <a href={attachment}><IconText type='link' text={attachment} /></a> 
+    }else if(type === 2){
+      return <a href={ipfsApi.ipfsUrl(attachment)}><IconText type='link' text={attachment} /></a> 
+    }else if(type === 3){
+      return (
+        <a href={attachment} target='_blank' rel='noopener noreferrer'>
+          <img src={attachment} alt='' style={{width: 230, height: 100}}/>
+        </a>
+      )
+    }
+    return '';
   }
 
   render() {
@@ -43,10 +66,16 @@ class PostsPage extends Component {
             <Card.Header
               title={obj.author}
               thumb='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
-              extra={<span>{moment(moment(obj.time).valueOf()+8*3600000).format('YYYY-MM-DD HH:mm:ss')}</span>}
+              extra={<span style={{fontSize: '14px'}}>{moment(moment(obj.time).valueOf()+8*3600000).format('YYYY-MM-DD HH:mm')}</span>}
             />
             <Card.Body>
-              <div style={{fontSize: 14}}>{obj.content}</div>
+              <div className='item-content'>{obj.content}</div>
+              {
+                obj.attachtype ? 
+                <div className='item-attach'>
+                  {this.renderAttachment(obj.attachtype, obj.attachment)}
+                </div> : ''
+              }
             </Card.Body>
             <Card.Footer content='' extra={<div></div>} />
           </Card>

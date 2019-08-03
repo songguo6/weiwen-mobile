@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { NavBar, ListView, Card, Flex, WhiteSpace, PullToRefresh } from 'antd-mobile';
-import axios from 'axios';
 import moment from 'moment';
 
 import { IconText } from '../utils';
@@ -13,12 +12,14 @@ class PostsPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.pageIndex = 0;
+    this.dataArr = data.reverse();
+
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
 
-    this.pageIndex = 0;
-  
     this.state = {
       dataSource,
       refreshing: true,
@@ -27,25 +28,17 @@ class PostsPage extends Component {
   }
 
   genOnePageData(pIndex = 0) {
-    const dataArr = [];
+    const dataOnePage = [];
     for (let i = 0; i < ROWS_OF_PAGE; i++) {
-      dataArr.push(`row - ${(pIndex * ROWS_OF_PAGE) + i}`);
+      const item = this.dataArr[pIndex * ROWS_OF_PAGE + i];
+      if(item !== undefined){
+        dataOnePage.push(item);
+      }
     }
-    return dataArr;
+    return dataOnePage;
   }
 
-  genData(){
-
-    axios.post('https://jungle2.cryptolions.io/v1/chain/get_table_rows', {
-      code: 'weiwendappss',
-      scope: 'weiwendappss',
-      table: 'posttable'
-    }).then(function (response) {
-      console.log(response);
-    }).catch(function (error) {
-      console.log(error);
-    });
-
+  componentDidMount() {
     setTimeout(() => {
       this.rData = this.genOnePageData();
       this.setState({
@@ -56,13 +49,16 @@ class PostsPage extends Component {
     }, 600);
   }
 
-  componentDidMount() {
-    this.genData();
-  }
-
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });
-    this.genData();
+    setTimeout(() => {
+      this.rData = this.genOnePageData();
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.rData),
+        refreshing: false,
+        isLoading: false,
+      });
+    }, 600);
   };
 
   onEndReached = (event) => {
@@ -94,13 +90,8 @@ class PostsPage extends Component {
   }
 
   render() {
-    let index = data.length - 1;
     const row = (rowData, sectionID, rowID) => {
-      if (index < 0) {
-        index = data.length - 1;
-      }
-      const item = data[index--];
-
+      const item = rowData;
       return (
         <div key={rowID} style={{ padding: '0 15px' }}>
           <Card full>

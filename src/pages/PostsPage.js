@@ -128,8 +128,6 @@ class PostsPage extends Component {
           微文
         </NavBar>
         <ListView
-          key={'1'}
-          ref={el => this.lv = el}
           dataSource={this.state.dataSource}
           renderRow={row}
           renderSeparator={(sectionID, rowID) => (

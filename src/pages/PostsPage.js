@@ -58,6 +58,7 @@ class PostsPage extends Component {
         refreshing: false,
         isLoading: false,
       });
+      this.pageIndex = 0;
     }, 600);
   };
 
@@ -143,7 +144,7 @@ class PostsPage extends Component {
             />
           )}
           renderFooter={() => (
-            <div style={{ padding: 30, textAlign: 'center' }}>
+            <div style={{ padding: 10, textAlign: 'center' }}>
               {this.state.isLoading ? '加载中...' : '加载完成'}
             </div>
           )}

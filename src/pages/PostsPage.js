@@ -1,27 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { NavBar, ListView, Card, Flex, WhiteSpace } from 'antd-mobile';
+import { NavBar, ListView, Card, Flex, WhiteSpace, PullToRefresh } from 'antd-mobile';
+import axios from 'axios';
 import moment from 'moment';
 
+import { IconText } from '../utils';
 import * as ipfsApi from '../api/ipfsApi';
 import { data } from '../data';
 
-const NUM_ROWS = 20;
-
-function genData(pIndex = 0) {
-  const dataBlob = {};
-  for (let i = 0; i < NUM_ROWS; i++) {
-    const ii = (pIndex * NUM_ROWS) + i;
-    dataBlob[`${ii}`] = `row - ${ii}`;
-  }
-  return dataBlob;
-}
-
-const IconText = ({ type, text, onClick }) => (
-  <span onClick={onClick}>
-    <i class={'iconfont ' + type} style={{ marginRight: 8 }}></i>
-    {text}
-  </span>
-);
+const ROWS_OF_PAGE = 10;  //每页数据条数
 
 class PostsPage extends Component {
 
@@ -30,12 +16,67 @@ class PostsPage extends Component {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
-    this.state = { dataSource };
+
+    this.pageIndex = 0;
+  
+    this.state = {
+      dataSource,
+      refreshing: true,
+      isLoading: true,
+    };
+  }
+
+  genOnePageData(pIndex = 0) {
+    const dataArr = [];
+    for (let i = 0; i < ROWS_OF_PAGE; i++) {
+      dataArr.push(`row - ${(pIndex * ROWS_OF_PAGE) + i}`);
+    }
+    return dataArr;
+  }
+
+  genData(){
+
+    axios.post('https://jungle2.cryptolions.io/v1/chain/get_table_rows', {
+      code: 'weiwendappss',
+      scope: 'weiwendappss',
+      table: 'posttable'
+    }).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    setTimeout(() => {
+      this.rData = this.genOnePageData();
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.rData),
+        refreshing: false,
+        isLoading: false,
+      });
+    }, 600);
   }
 
   componentDidMount() {
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(genData())});
+    this.genData();
   }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true, isLoading: true });
+    this.genData();
+  };
+
+  onEndReached = (event) => {
+    if (this.state.isLoading) return;
+    this.setState({ isLoading: true });
+
+    setTimeout(() => {
+      this.rData = [...this.rData, ...this.genOnePageData(++this.pageIndex)];
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.rData),
+        isLoading: false,
+      });
+    }, 600);
+  };
 
   renderAttachment(type, attachment){
     if(type === 1){
@@ -95,6 +136,8 @@ class PostsPage extends Component {
           微文
         </NavBar>
         <ListView
+          key={'1'}
+          ref={el => this.lv = el}
           dataSource={this.state.dataSource}
           renderRow={row}
           renderSeparator={(sectionID, rowID) => (
@@ -108,7 +151,18 @@ class PostsPage extends Component {
               }}
             />
           )}
-          useBodyScroll
+          renderFooter={() => (
+            <div style={{ padding: 30, textAlign: 'center' }}>
+              {this.state.isLoading ? '加载中...' : '加载完成'}
+            </div>
+          )}
+          style={{height: document.documentElement.clientHeight}}
+          pullToRefresh={<PullToRefresh
+            refreshing={this.state.refreshing}
+            onRefresh={this.onRefresh}
+          />}
+          onEndReached={this.onEndReached}
+          pageSize={5}
         />
       </Fragment>
     );

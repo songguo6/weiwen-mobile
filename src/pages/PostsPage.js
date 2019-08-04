@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { IconText } from '../utils';
 import * as ipfsApi from '../api/ipfsApi';
-import { data } from '../data';
+import { fetchAll } from '../api/fetch';
 
 const ROWS_OF_PAGE = 10;  //每页数据条数
 
@@ -14,13 +14,13 @@ class PostsPage extends Component {
     super(props);
 
     this.pageIndex = 0;
-    this.dataArr = data.reverse();
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
 
     this.state = {
+      data: [],
       dataSource,
       refreshing: true,
       isLoading: true,
@@ -30,7 +30,7 @@ class PostsPage extends Component {
   genOnePageData(pIndex = 0) {
     const dataOnePage = [];
     for (let i = 0; i < ROWS_OF_PAGE; i++) {
-      const item = this.dataArr[pIndex * ROWS_OF_PAGE + i];
+      const item = this.state.data[pIndex * ROWS_OF_PAGE + i];
       if(item !== undefined){
         dataOnePage.push(item);
       }
@@ -38,28 +38,30 @@ class PostsPage extends Component {
     return dataOnePage;
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.rData = this.genOnePageData();
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.rData),
-        refreshing: false,
-        isLoading: false,
-      });
-    }, 600);
+  async componentDidMount() {
+    const res = await fetchAll('posttable');
+    this.setState({data: res});
+
+    this.rData = this.genOnePageData();
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.rData),
+      refreshing: false,
+      isLoading: false,
+    });
   }
 
-  onRefresh = () => {
+  onRefresh = async () => {
     this.setState({ refreshing: true, isLoading: true });
-    setTimeout(() => {
-      this.rData = this.genOnePageData();
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.rData),
-        refreshing: false,
-        isLoading: false,
-      });
-      this.pageIndex = 0;
-    }, 600);
+    const res = await fetchAll('posttable');
+    this.setState({data: res});
+
+    this.rData = this.genOnePageData();
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.rData),
+      refreshing: false,
+      isLoading: false,
+    });
+    this.pageIndex = 0;
   };
 
   onEndReached = (event) => {
@@ -82,8 +84,8 @@ class PostsPage extends Component {
       return <a href={ipfsApi.ipfsUrl(attachment)}><IconText type='icon-link' text={attachment} /></a> 
     }else if(type === 3){
       return (
-        <a href={attachment} target='_blank' rel='noopener noreferrer'>
-          <img src={attachment} alt='' style={{width: 230, height: 100}}/>
+        <a href={ipfsApi.ipfsUrl(attachment)} target='_blank' rel='noopener noreferrer'>
+          <img src={ipfsApi.ipfsUrl(attachment)} alt='' style={{width: 230, height: 100}}/>
         </a>
       )
     }

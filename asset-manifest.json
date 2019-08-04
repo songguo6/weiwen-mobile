@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/weiwen-mobile/static/css/main.a3b598d1.chunk.css",
-    "main.js": "/weiwen-mobile/static/js/main.318f76a9.chunk.js",
-    "main.js.map": "/weiwen-mobile/static/js/main.318f76a9.chunk.js.map",
+    "main.js": "/weiwen-mobile/static/js/main.a857b837.chunk.js",
+    "main.js.map": "/weiwen-mobile/static/js/main.a857b837.chunk.js.map",
     "runtime~main.js": "/weiwen-mobile/static/js/runtime~main.8524ee8f.js",
     "runtime~main.js.map": "/weiwen-mobile/static/js/runtime~main.8524ee8f.js.map",
     "static/css/2.5d522f12.chunk.css": "/weiwen-mobile/static/css/2.5d522f12.chunk.css",
-    "static/js/2.b648f403.chunk.js": "/weiwen-mobile/static/js/2.b648f403.chunk.js",
-    "static/js/2.b648f403.chunk.js.map": "/weiwen-mobile/static/js/2.b648f403.chunk.js.map",
+    "static/js/2.a735e0c3.chunk.js": "/weiwen-mobile/static/js/2.a735e0c3.chunk.js",
+    "static/js/2.a735e0c3.chunk.js.map": "/weiwen-mobile/static/js/2.a735e0c3.chunk.js.map",
     "index.html": "/weiwen-mobile/index.html",
-    "precache-manifest.cfa90629447af4ebc05460d2a142add7.js": "/weiwen-mobile/precache-manifest.cfa90629447af4ebc05460d2a142add7.js",
+    "precache-manifest.c6e99fca3c61f9b26fc0c804d21a19d9.js": "/weiwen-mobile/precache-manifest.c6e99fca3c61f9b26fc0c804d21a19d9.js",
     "service-worker.js": "/weiwen-mobile/service-worker.js",
     "static/css/2.5d522f12.chunk.css.map": "/weiwen-mobile/static/css/2.5d522f12.chunk.css.map",
     "static/css/main.a3b598d1.chunk.css.map": "/weiwen-mobile/static/css/main.a3b598d1.chunk.css.map"

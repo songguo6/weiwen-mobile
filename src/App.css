@@ -58,5 +58,5 @@
 .am-card-header-content { font-size: 14px; }
 .am-card-header-content img { width: 22px; height: 22px; }
 
-.item-content { line-height: 22px; }
+.item-content { line-height: 22px; word-wrap: break-word; }
 .item-attach { line-height: 22px; }

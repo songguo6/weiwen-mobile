@@ -4,6 +4,7 @@ import App from './App';
 
 import { UALProvider } from 'ual-reactjs-renderer';
 import { TokenPocket } from 'ual-token-pocket';
+import { Scatter } from 'ual-scatter';
 
 import { appName, network } from './api/config';
 
@@ -18,8 +19,11 @@ const chain = {
   ],
 }
 
+const scatter = new Scatter([chain], {appName});
+const tokenPocket = new TokenPocket([chain]);
+
 const supportedChains = [chain];
-const supportedAuthenticators = [new TokenPocket([chain])];
+const supportedAuthenticators = [scatter, tokenPocket];
 
 ReactDOM.render(
   <UALProvider chains={supportedChains} authenticators={supportedAuthenticators} appName={appName}>

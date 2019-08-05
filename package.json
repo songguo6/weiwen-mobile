@@ -17,6 +17,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "ual-reactjs-renderer": "^0.1.4",
+    "ual-scatter": "^0.1.5",
     "ual-token-pocket": "^0.1.1"
   },
   "scripts": {

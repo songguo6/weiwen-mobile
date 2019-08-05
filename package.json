@@ -15,7 +15,9 @@
     "react": "^16.8.6",
     "react-app-rewired": "^2.1.3",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "ual-reactjs-renderer": "^0.1.4",
+    "ual-token-pocket": "^0.1.1"
   },
   "scripts": {
     "start": "react-app-rewired start",

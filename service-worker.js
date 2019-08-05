@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/weiwen-mobile/precache-manifest.5f8ff18cc3c13be24992be159b1c7d48.js"
+  "/weiwen-mobile/precache-manifest.c217a35a3f1212a5fe9d591b17edf4a4.js"
 );
 
 self.addEventListener('message', (event) => {

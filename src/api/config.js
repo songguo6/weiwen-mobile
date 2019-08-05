@@ -7,7 +7,7 @@ const contract = 'weiwendapps2';
 const network = {
   blockchain: 'eos',
   protocol: 'https',
-  host: 'api.jungle.alohaeos.com',
+  host: 'jungle2.cryptolions.io',
   port: 443,
   chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
 };

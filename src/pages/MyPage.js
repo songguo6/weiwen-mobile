@@ -35,7 +35,8 @@ class MyPage extends Component {
         <NavBar mode='dark'>我的</NavBar>
         <WhiteSpace size='lg'/>
         <Button onClick={this.onBtnClick}>getEosBalance</Button>
-        <div>{this.state.balance}</div>
+        <WhiteSpace size='lg'/>
+        <div style={{textAlign: 'center'}}>{this.state.balance}</div>
       </Fragment>
     )
   }

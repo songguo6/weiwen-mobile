@@ -1,23 +1,52 @@
 import React, { Component, Fragment } from 'react';
-import { NavBar, Button, Toast } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { NavBar, Button } from 'antd-mobile';
+import { login, logout, checkLogin } from '../api/login';
+// import { toast } from '../utils';
 
-const tp = require('tp-eosjs');
+// const tp = require('tp-eosjs');
 
 class MyPage extends Component {
 
   componentDidMount(){
-    Toast.info('isConnected: '+tp.isConnected(),1);
+    this.props.checkLogin();
+    // toast('isConnected: ' + tp.isConnected());
   }
 
   render() {
+    const { logged, login, logout } = this.props;
     return (
       <Fragment>
         <NavBar mode='dark'>我的</NavBar>
-        <Button>Login</Button>
-        <Button>Logout</Button>
+        <Button
+          onClick={logged.name ? logout: login }
+        >
+          {logged.name ? '注销' : '登录'}
+        </Button>
       </Fragment>
     )
   }
 }
 
-export default MyPage;
+const mapStateToProps = (state) => {
+  return {
+    logged: state.logged,
+    user : state.user,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    login(){
+      dispatch(login);  
+    },
+    logout(){
+      dispatch(logout);  
+    },
+    checkLogin(){
+      dispatch(checkLogin);
+    }, 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPage);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toast } from 'antd-mobile';
 
 export const IconText = ({ type, text, onClick }) => (
   <span onClick={onClick}>
@@ -6,3 +7,7 @@ export const IconText = ({ type, text, onClick }) => (
     {text}
   </span>
 );
+
+export const toast = (msg) => {
+  Toast.info(msg, 1);
+}

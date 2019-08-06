@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { NavBar, Button } from 'antd-mobile';
+import { NavBar, Button, WhiteSpace } from 'antd-mobile';
 import { login, logout, checkLogin } from '../api/login';
 // import { toast } from '../utils';
 
@@ -14,7 +14,7 @@ class MyPage extends Component {
   }
 
   render() {
-    const { logged, login, logout } = this.props;
+    const { logged, login, logout, user } = this.props;
     return (
       <Fragment>
         <NavBar mode='dark'>我的</NavBar>
@@ -23,6 +23,8 @@ class MyPage extends Component {
         >
           {logged.name ? '注销' : '登录'}
         </Button>
+        <WhiteSpace size='lg'/>
+        <div>{user.account}</div>
       </Fragment>
     )
   }
